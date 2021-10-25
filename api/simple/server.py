@@ -4,10 +4,12 @@ from sqlalchemy import create_engine
 import logging
 from sqlalchemy.orm import sessionmaker
 
+
 def handler_factory(Session):
     def createHandler(*args, **keys):
         return MyHandler(Session(), *args, **keys)
     return createHandler
+
 
 def run(port):
     try:

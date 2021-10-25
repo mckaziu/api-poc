@@ -2,16 +2,17 @@ import random
 import pytest
 from requests.models import HTTPError
 
-#TODO: add mocks
+
+# TODO: add mocks
 class TestSimpleAPI(object):
     def test_wrong_endpoint(self, nonexisting_endpoint):
-        with pytest.raises(HTTPError) as http_error:
+        with pytest.raises(HTTPError):
             nonexisting_endpoint._get()
 
     def test_get_all(self, objects):
         response = objects._get()
         assert isinstance(response, list)
-        assert all(map(lambda o: len(o)==2, response))
+        assert all(map(lambda o: len(o) == 2, response))
 
     def test_get_by_id(self, objects):
         response = objects._get()
@@ -60,7 +61,6 @@ class TestSimpleAPI(object):
     def test_delete_nonexisting(self, objects):
         response = objects._get()
         count = len(response)
-        o = response[0]
         objects._delete(9999)
         response = objects._get()
         assert len(response) == count
@@ -96,4 +96,3 @@ class TestSimpleAPI(object):
         assert len(response) == count-1
         response = objects._get(id)
         assert len(response) == 0
-

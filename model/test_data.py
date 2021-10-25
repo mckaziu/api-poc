@@ -4,6 +4,7 @@ from sqlalchemy import Column, Integer, Float
 
 Base = declarative_base()
 
+
 class MyObject(Base):
     __tablename__ = 'test'
 
@@ -15,7 +16,8 @@ class MyObject(Base):
         return f'MyObject(x={self.x}, y={self.y})'
 
     def to_dict(self):
-        return {"id":self.id, "values":[self.x, self.y]}
+        return {"id": self.id, "values": [self.x, self.y]}
+
 
 class TestOperations:
     def __init__(self, session):
@@ -28,7 +30,7 @@ class TestOperations:
     def read(self, id=None):
         with self.session.begin():
             if id:
-                return list(map(lambda o: o.to_dict(), self.session.query(MyObject).filter(MyObject.id==id).all()))
+                return list(map(lambda o: o.to_dict(), self.session.query(MyObject).filter(MyObject.id == id).all()))
             else:
                 return list(map(lambda o: o.to_dict(), self.session.query(MyObject).all()))
 
@@ -43,5 +45,3 @@ class TestOperations:
             data = self.session.query(MyObject).get(id)
             if data:
                 self.session.delete(data)
-
-

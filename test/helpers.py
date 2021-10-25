@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 class APIHelper:
     def __init__(self, base_url, endpoint):
         self.base_url = base_url
@@ -12,12 +13,12 @@ class APIHelper:
 
     def _post(self, payload):
         response = requests.post(
-                url = self.url,
-                headers = {
+                url=self.url,
+                headers={
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                data = json.dumps(payload)
+                data=json.dumps(payload)
             )
         response.raise_for_status()
         return json.loads(response.text)
@@ -25,8 +26,8 @@ class APIHelper:
     def _get(self, id=None):
         url = f'{self.url}/{id}' if id else self.url
         response = requests.get(
-                url = url,
-                headers = {
+                url=url,
+                headers={
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
@@ -36,20 +37,20 @@ class APIHelper:
 
     def _put(self, id, payload):
         response = requests.put(
-                url = f'{self.url}/{id}',
-                headers = {
+                url=f'{self.url}/{id}',
+                headers={
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                data = json.dumps(payload)
+                data=json.dumps(payload)
             )
         response.raise_for_status()
         return json.loads(response.text)
 
     def _delete(self, id):
         response = requests.delete(
-                url = f'{self.url}/{id}',
-                headers = {
+                url=f'{self.url}/{id}',
+                headers={
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },

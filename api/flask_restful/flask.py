@@ -3,7 +3,6 @@ from flask_restful import Resource, Api
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import model.test_data as td
-from flask_restful import reqparse
 
 APP_NAME = 'flask-restful-demo-app'
 app = Flask(APP_NAME)
@@ -12,6 +11,7 @@ api = Api(app)
 
 engine = create_engine("sqlite:///model/demo.db")
 Session = sessionmaker(bind=engine)
+
 
 # TODO: refactor
 class MyObjects(Resource):
@@ -29,12 +29,13 @@ class MyObjects(Resource):
         output_data = {'status': 'OK', 'result': 'POST'}
         return output_data
 
+
 class MyObject(Resource):
     def get(self, id):
         session = Session()
         operations = td.TestOperations(session)
         result = operations.read(id)
-        return result 
+        return result
 
     def put(self, id):
         session = Session()
@@ -42,7 +43,7 @@ class MyObject(Resource):
         payload = request.json
         operations.update(id, payload[0], payload[1])
         output_data = {'status': 'OK', 'result': 'PUT'}
-        return output_data   
+        return output_data
 
     def delete(self, id):
         session = Session()
@@ -51,9 +52,11 @@ class MyObject(Resource):
         output_data = {'status': 'OK', 'result': 'DELETE'}
         return output_data
 
+
 api.add_resource(MyObjects, '/v1/objects')
 api.add_resource(MyObject, '/v1/objects/<id>')
 
+
 def run(port):
-    with engine.connect() as db:
+    with engine.connect():
         app.run(host='0.0.0.0', port=port)

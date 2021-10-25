@@ -2,6 +2,7 @@ from http.server import SimpleHTTPRequestHandler
 import json
 import model.test_data as td
 
+
 class MyHandler(SimpleHTTPRequestHandler):
     def __init__(self, session, *args, **keys):
         self.session = session
@@ -19,7 +20,11 @@ class MyHandler(SimpleHTTPRequestHandler):
         self.send_response(404)
         self.send_header('Content-type', 'text/json')
         self.end_headers()
-        output_data = {'status': '404', 'message': 'Wrong endpoint', 'path' : self.path}
+        output_data = {
+            'status': '404',
+            'message': 'Wrong endpoint',
+            'path': self.path
+        }
         output_json = json.dumps(output_data)
         self.wfile.write(output_json.encode('utf-8'))
 
@@ -45,7 +50,7 @@ class MyHandler(SimpleHTTPRequestHandler):
         payload = self._extract_payload()
 
         self.operations.create(payload[0], payload[1])
-        
+
         output_data = {'status': 'OK', 'result': 'POST'}
         output_json = json.dumps(output_data)
 
@@ -65,10 +70,10 @@ class MyHandler(SimpleHTTPRequestHandler):
         output_json = json.dumps(result)
 
         self.send_response(200)
-        self.send_header('Content-type','text/json')
+        self.send_header('Content-type', 'text/json')
         self.end_headers()
         self.wfile.write(output_json.encode('utf-8'))
-        
+
     def do_PUT(self):
         if not self._validate():
             self._handle_wrong_endpoint()
@@ -83,10 +88,10 @@ class MyHandler(SimpleHTTPRequestHandler):
         output_json = json.dumps(output_data)
 
         self.send_response(200)
-        self.send_header('Content-type','text/json')
+        self.send_header('Content-type', 'text/json')
         self.end_headers()
         self.wfile.write(output_json.encode('utf-8'))
-        
+
     def do_DELETE(self):
         if not self._validate():
             self._handle_wrong_endpoint()
@@ -100,6 +105,6 @@ class MyHandler(SimpleHTTPRequestHandler):
         output_json = json.dumps(output_data)
 
         self.send_response(200)
-        self.send_header('Content-type','text/json')
+        self.send_header('Content-type', 'text/json')
         self.end_headers()
         self.wfile.write(output_json.encode('utf-8'))
