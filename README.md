@@ -47,3 +47,14 @@ Each of the modules implements `run` function with `port` parameter so that it i
 ## `run_server.py`
 
 Script for selecting and running one of the implemented servers/APIs.
+
+# Todo
+
+- reset the db before tests
+- more refactoring
+- renaming modules and classes where needed
+- possibility to run tests on mocked db
+- additional endpoint with fancy calculations
+- tests for the additional endpoint
+- simple performance tests
+- finish linting
