@@ -34,7 +34,7 @@ Each of the modules implements `run` function with `port` parameter so that it i
 
 - `conftest.py` - fixtures: reading the port from the command line, creating client objects 
 - `helpers.py` - a single client class, `APIHelper`, that can send HTTP requests to API to which it is attached
-- `test_simple.py` - a single test class for testing the APIs; the test cases cover all of the basic fnctionality provided by the sample APIs
+- `test_simple.py` - a single test class for testing the APIs; the test cases cover all of the basic functionality provided by the sample APIs
 
 ## `run_server.py`
 
