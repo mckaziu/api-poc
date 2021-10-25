@@ -19,7 +19,7 @@ class MyObject(Base):
         return {"id": self.id, "values": [self.x, self.y]}
 
 
-class TestOperations:
+class Operations:
     def __init__(self, session):
         self.session = session
 

@@ -13,17 +13,20 @@ engine = create_engine("sqlite:///model/demo.db")
 Session = sessionmaker(bind=engine)
 
 
+def get_operations():
+    session = Session()
+    return td.Operations(session)
+
+
 # TODO: refactor
 class MyObjects(Resource):
     def get(self):
-        session = Session()
-        operations = td.TestOperations(session)
+        operations = get_operations()
         result = operations.read(None)
         return result
 
     def post(self):
-        session = Session()
-        operations = td.TestOperations(session)
+        operations = get_operations()
         payload = request.json
         operations.create(payload[0], payload[1])
         output_data = {'status': 'OK', 'result': 'POST'}
@@ -32,22 +35,19 @@ class MyObjects(Resource):
 
 class MyObject(Resource):
     def get(self, id):
-        session = Session()
-        operations = td.TestOperations(session)
+        operations = get_operations()
         result = operations.read(id)
         return result
 
     def put(self, id):
-        session = Session()
-        operations = td.TestOperations(session)
+        operations = get_operations()
         payload = request.json
         operations.update(id, payload[0], payload[1])
         output_data = {'status': 'OK', 'result': 'PUT'}
         return output_data
 
     def delete(self, id):
-        session = Session()
-        operations = td.TestOperations(session)
+        operations = get_operations()
         operations.delete(id)
         output_data = {'status': 'OK', 'result': 'DELETE'}
         return output_data

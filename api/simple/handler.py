@@ -7,7 +7,7 @@ import functools
 class MyHandler(SimpleHTTPRequestHandler):
     def __init__(self, session, *args, **keys):
         self.session = session
-        self.operations = td.TestOperations(self.session)
+        self.operations = td.Operations(self.session)
         super().__init__(*args, **keys)
 
     def _validate(self):
@@ -75,28 +75,28 @@ class MyHandler(SimpleHTTPRequestHandler):
             return wrapper
         return inner
 
-    @standard_response('POST')
     @validate_request
+    @standard_response('POST')
     def do_POST(self):
         payload = self._extract_payload()
         self.operations.create(payload[0], payload[1])
 
-    @write_response
     @validate_request
+    @write_response
     def do_GET(self):
         id = self._extract_id()
         result = self.operations.read(id)
         return json.dumps(result)
 
-    @standard_response('PUT')
     @validate_request
+    @standard_response('PUT')
     def do_PUT(self):
         id = self._extract_id()
         input_data = self._extract_payload()
         self.operations.update(id, input_data[0], input_data[1])
 
-    @standard_response('DELETE')
     @validate_request
+    @standard_response('DELETE')
     def do_DELETE(self):
         id = self._extract_id()
         self.operations.delete(id)

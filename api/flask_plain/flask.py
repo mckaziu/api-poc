@@ -15,7 +15,7 @@ Session = sessionmaker(bind=engine)
 @app.get('/v1/objects')
 def do_get_all():
     session = Session()
-    operations = td.TestOperations(session)
+    operations = td.Operations(session)
     result = operations.read(None)
     return jsonify(result)
 
@@ -23,7 +23,7 @@ def do_get_all():
 @app.get('/v1/objects/<int:object_id>')
 def do_get_by_id(object_id):
     session = Session()
-    operations = td.TestOperations(session)
+    operations = td.Operations(session)
     result = operations.read(object_id)
     return jsonify(result)
 
@@ -31,7 +31,7 @@ def do_get_by_id(object_id):
 @app.post('/v1/objects')
 def do_post():
     session = Session()
-    operations = td.TestOperations(session)
+    operations = td.Operations(session)
     payload = request.json
     operations.create(payload[0], payload[1])
     output_data = {'status': 'OK', 'result': 'POST'}
@@ -41,7 +41,7 @@ def do_post():
 @app.put('/v1/objects/<int:object_id>')
 def do_put(object_id):
     session = Session()
-    operations = td.TestOperations(session)
+    operations = td.Operations(session)
     payload = request.json
     operations.update(object_id, payload[0], payload[1])
     output_data = {'status': 'OK', 'result': 'PUT'}
@@ -51,7 +51,7 @@ def do_put(object_id):
 @app.delete('/v1/objects/<int:object_id>')
 def do_delete(object_id):
     session = Session()
-    operations = td.TestOperations(session)
+    operations = td.Operations(session)
     operations.delete(object_id)
     output_data = {'status': 'OK', 'result': 'DELETE'}
     return jsonify(output_data)

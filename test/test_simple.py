@@ -4,7 +4,8 @@ from requests.models import HTTPError
 
 
 # TODO: add mocks
-class TestSimpleAPI(object):
+@pytest.mark.usefixtures('reset_db')
+class TestAPI(object):
     def test_wrong_endpoint(self, nonexisting_endpoint):
         with pytest.raises(HTTPError):
             nonexisting_endpoint._get()

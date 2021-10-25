@@ -2,7 +2,7 @@ import requests
 import json
 
 
-class APIHelper:
+class APIClient:
     def __init__(self, base_url, endpoint):
         self.base_url = base_url
         self.endpoint = endpoint
