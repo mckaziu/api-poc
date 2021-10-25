@@ -14,6 +14,14 @@ The `api` parameter accepts one of the following values: `simple`, `flask-plain`
 
 2. Run tests. Enter `tests` directory, run `pytest --port=PORT` where `PORT` is the port used by the server.
 
+**Note**
+
+Currently the database is not recreated between test runs + the tests assume that `demo.db` has at least one row.
+
+Until this is fixed, please do manual inserts between test runs if you need to re-populate the db, e.g.
+
+`INSERT INTO "main"."test"("ID","X","Y") VALUES (1,1.1,2.2);`
+
 # Contents
 
 ## API
